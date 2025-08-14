@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Upload PDF · PDF RAG Chat{% endblock %}
+{% block content %}
+<section class="card">
+  <h2>Upload a PDF</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-row">
+      {{ form.title.label_tag }} {{ form.title }}
+    </div>
+    <div class="form-row">
+      {{ form.file.label_tag }} {{ form.file }}
+    </div>
+    <button type="submit">Upload & Index</button>
+    {% if form.errors %}
+      <div class="error">{{ form.errors }}</div>
+    {% endif %}
+  </form>
+  <p class="muted">Supports large documents (500+ pages). Indexing runs immediately after upload.</p>
+</section>
+{% endblock %}

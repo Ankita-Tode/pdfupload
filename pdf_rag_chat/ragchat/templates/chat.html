@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Chat · {{ doc.title }}{% endblock %}
+{% block content %}
+<section class="card">
+  <h2>Chat about: {{ doc.title }}</h2>
+  <p class="muted">Pages: {{ doc.num_pages }}</p>
+  <div id="chatlog">
+    {% for m in messages %}
+      <div class="msg {{ m.role }}">
+        <div class="bubble">
+          <div class="role">{{ m.role|title }}</div>
+          <div class="content">{{ m.content|linebreaksbr }}</div>
+        </div>
+      </div>
+    {% empty %}
+      <div class="muted">Ask your first question below.</div>
+    {% endfor %}
+  </div>
+  <form id="ask-form" data-url="{% url 'ask' session.id %}">
+    {% csrf_token %}
+    <input type="text" name="question" id="question" placeholder="Type your question about the PDF..." autocomplete="off" required />
+    <button type="submit">Ask</button>
+  </form>
+  <div id="sources"></div>
+</section>
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'ragchat/chat.js' %}"></script>
+{% endblock %}
