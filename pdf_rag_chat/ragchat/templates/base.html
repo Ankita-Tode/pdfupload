@@ -1,1 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>{% block title %}PDF RAG Chat{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'ragchat/styles.css' %}">
+  {% csrf_token %}
+</head>
+<body>
+  <header class="container">
+    <h1><a href="{% url 'upload' %}">📄 PDF RAG Chat</a></h1>
+  </header>
+  <main class="container">
+    {% block content %}{% endblock %}
+  </main>
+  <footer class="container small muted">
+    Built with Django, FAISS, PyMuPDF & OpenAI.
+  </footer>
+  <script>
+    window.CSRF_TOKEN = "{{ csrf_token }}";
+  </script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>
 
